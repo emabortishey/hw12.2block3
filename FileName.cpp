@@ -28,3 +28,23 @@ istream& operator>>(istream& cin, mass<int>& obj)
 
 	return cin;
 }
+
+ostream& operator<<(ostream& cout, mass<char*>& obj)
+{
+	for (int i = 0; i < obj.size; i++)
+	{
+		cout << obj.mas[i] << ' ';
+	}
+
+	return cout;
+}
+
+istream& operator>>(istream& cin, mass<char*>& obj)
+{
+	for (int i = 0; i < obj.size; i++)
+	{
+		cin >> obj.mas[i];
+	}
+
+	return cin;
+}
