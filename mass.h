@@ -35,8 +35,11 @@ public:
 	}
 	void set_size(int obj) { size = obj; }
 
-	int get_size() { return size; }
-	const T* get_mas() { return mas; }
+	friend ostream& operator<<(ostream& cout, mass<int>& obj);
+	friend istream& operator>>(istream& cin, mass<int>& obj);
+
+	int get_size() { return size; };
+	const T* get_mas() { return mas; };
 
 	~mass() { delete[] mas; }
 
