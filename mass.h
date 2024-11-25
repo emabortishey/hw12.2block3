@@ -306,3 +306,141 @@ public:
 	}
 
 };
+
+template<>
+class mass<string>
+{
+	string* mas;
+	int size;
+public:
+	mass() : mass(nullptr, 10) { }
+	mass(const string* mas_P) : mass(mas_P, sizeof(mas_P)) { }
+	mass(const string* mas_P, const int size_P) : mas{ new string[size_P]{*mas_P} }, size{ size_P } { }
+	mass(const initializer_list<string>& mas_P, const int size_P) : mas{ new string[size_P] }, size{ size_P }
+	{
+		int index = 0;
+		for (auto elem : mas_P) {
+			mas[index++] = elem;
+		}
+	}
+	mass(const mass& obj) : mas{ new string[obj.size]{*obj.mas} }, size{ obj.size } { }
+	mass(mass&& obj) : mas{ new string[obj.size] }, size{ obj.size } {
+		mas = obj.mas;
+		obj.mas = nullptr;
+		obj.size = 0;
+	}
+
+	void set_mas(string* obj)
+	{
+		delete[] mas;
+		size = obj[0].size();
+		mas = new string[size];
+	}
+	void set_size(int obj) { size = obj; }
+
+	friend ostream& operator<<(ostream& cout, mass<string>& obj);
+	friend istream& operator>>(istream& cin, mass<string>& obj);
+
+	auto max()
+	{
+		auto max_el = mas[0][0];
+
+		for (int i = 0; i < size; i++)
+		{
+			for (int j = 0; j < size; j++)
+			{
+				if (mas[i][j] > max_el)
+				{
+					max_el = mas[i][j];
+				}
+			}
+		}
+
+		return max_el;
+	}
+
+	auto min()
+	{
+		auto min_el = mas[0][0];
+
+		for (int i = 0; i < size; i++)
+		{
+			for (int j = 0; j < size; j++)
+			{
+				if (mas[i][j] < min_el)
+				{
+					min_el = mas[i][j];
+				}
+			}
+		}
+
+		return min_el;
+	}
+
+	const string& search(string seek)
+	{
+		for (int i = 0; i < size; i++)
+		{
+			if (mas[i] == seek)
+			{
+				return mas[i];
+			}
+		}
+	}
+
+	void adding(string el)
+	{
+		size++;
+		string* buff = new string[size]{ *mas };
+		delete[] mas;
+		mas = new string[size]{ *buff };
+		mas[size - 1] = el;
+	}
+
+	void deleting()
+	{
+		size--;
+		string* buff = new string[size]{ *mas };
+		delete[] mas;
+		mas = new string[size]{ *buff };
+	}
+
+	mass& operator=(const mass& obj)
+	{
+		delete[] mas;
+		mas = new string[obj.size]{ *obj.mas };
+		size = obj.size;
+
+		return *this;
+	}
+
+	mass& operator=(mass&& obj)
+	{
+		delete[] mas;
+		mas = obj.mas;
+		size = obj.size;
+		obj.mas = nullptr;
+		obj.size = 0;
+
+		return *this;
+	}
+
+	string operator[](const int index) const
+	{
+		return mas[index];
+	}
+
+
+	int get_size() { return size; };
+	const string* get_mas() { return mas; };
+
+	~mass() 
+	{ 
+		for (int i = 0; i < size; i++)
+		{
+			mas[i].clear();
+		}
+		delete[] mas;
+	}
+
+};
