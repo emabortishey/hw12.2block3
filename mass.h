@@ -38,6 +38,86 @@ public:
 	friend ostream& operator<<(ostream& cout, mass<int>& obj);
 	friend istream& operator>>(istream& cin, mass<int>& obj);
 
+	T max()
+	{
+		T max_el = mas[0];
+
+		for (int i = 0; i < size; i++)
+		{
+			if (mas[i] > max_el)
+			{
+				max_el = mas[i];
+			}
+		}
+
+		return max_el;
+	}
+
+	T min()
+	{
+		T min_el = mas[0];
+
+		for (int i = 0; i < size; i++)
+		{
+			if (mas[i] < min_el)
+			{
+				min_el = mas[i];
+			}
+		}
+
+		return min_el;
+	}
+
+	const T& search(T seek)
+	{
+		for (int i = 0; i < size; i++)
+		{
+			if (mas[i] == seek)
+			{
+				return mas[i];
+			}
+		}
+	}
+
+	void adding(T el)
+	{
+		size++;
+		T* buff = new T[size]{ *mas };
+		delete[] mas;
+		mas = new T[size]{ *buff };
+		mas[size - 1] = el;
+	}
+
+	void deleting()
+	{
+		size--;
+		T* buff = new T[size]{ *mas };
+		delete[] mas;
+		mas = new T[size]{ *buff };
+	}
+
+	T* operator=(const mass& obj)
+	{
+		delete[] mas;
+		mas = new T[obj.size]{ *obj.mas };
+		size = obj.size;
+	}
+
+	T* operator=(mass&& obj)
+	{
+		delete[] mas;
+		mas = obj.mas;
+		size = obj.size;
+		obj.mas = nullptr;
+		obj.size = 0;
+	}
+
+	T operator[](const int index) const
+	{
+		return mas[index];
+	}
+
+
 	int get_size() { return size; };
 	const T* get_mas() { return mas; };
 
