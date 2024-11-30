@@ -1,10 +1,13 @@
+#include "Header.h"
 #include "mass.h"
 
 int main()
 {
-	mass<int> obj{ {1, 2, 3}, 3 };
+	// тест каждой из специализаций и основного шаблона 
 
-	cout << "Int output:\t" << obj;
+	mass<int> obj{ {1, 2, 3, 4, 5}, 5 };
+
+	cout << "Int output:\t" << obj << "\t" << obj.max();
 
 	mass<char*> obj0{ {"char meow 1", "char meow 2", "char meow 3", "char meow 4", "char meow 5"}, 5, 100};
 
@@ -17,17 +20,21 @@ int main()
 	return 0;
 }
 
-ostream& operator<<(ostream& cout, mass<int>& obj)
+// перегрузки операторов ввода и вывода 
+
+template<typename T>
+ostream& operator<<(ostream& cout, mass<T>& obj)
 {
 	for (int i = 0; i < obj.size; i++)
 	{
-		cout << obj.mas[i] << ", ";
+		cout << obj.mas[i] << " ";
 	}
 
 	return cout;
 }
 
-istream& operator>>(istream& cin, mass<int>& obj)
+template<typename T>
+istream& operator>>(istream& cin, mass<T>& obj)
 {
 	for (int i = 0; i < obj.size; i++)
 	{
@@ -41,7 +48,7 @@ ostream& operator<<(ostream& cout, mass<char*>& obj)
 {
 	for (int i = 0; i < obj.size_row; i++)
 	{
-		cout << obj.mas[i] << ", ";
+		cout << obj.mas[i] << " ";
 	}
 
 	return cout;
@@ -61,7 +68,7 @@ ostream& operator<<(ostream& cout, mass<string>& obj)
 {
 	for (int i = 0; i < obj.size_row; i++)
 	{
-		cout << obj.mas[i] << ", ";
+		cout << obj.mas[i] << " ";
 	}
 
 	return cout;

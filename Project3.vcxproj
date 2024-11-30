@@ -131,10 +131,11 @@
     <ClCompile Include="mass.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Header.h" />
     <ClInclude Include="mass.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="massinl.inl" />
+    <None Include="massINL.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

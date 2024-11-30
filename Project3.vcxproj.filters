@@ -26,9 +26,12 @@
     <ClInclude Include="mass.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="Header.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="massinl.inl">
+    <None Include="massINL.inl">
       <Filter>Файлы заголовков</Filter>
     </None>
   </ItemGroup>
